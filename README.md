@@ -42,7 +42,8 @@ to work in and replace its "Checks in this repo" section. Claude Code reads
 ```
 AGENTS.md        workflow and multi-agent rules
 CLAUDE.md        @AGENTS.md, for Claude Code
-skills/<name>/   one folder per skill: SKILL.md, plus references/ or scripts/
+<name>/          one folder per skill at the root, e.g. ideation/: SKILL.md,
+                 plus references/ or scripts/
 ```
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) to add a skill.

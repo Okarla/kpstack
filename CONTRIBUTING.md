@@ -3,7 +3,8 @@
 ## Adding a skill
 
 1. Work on a branch in your own worktree, never on `main` (see [AGENTS.md](AGENTS.md)).
-2. Create `skills/<name>/SKILL.md` with a kebab-case `<name>`.
+2. Create `<name>/SKILL.md` at the repo root, with a kebab-case `<name>`
+   (for example `ideation/SKILL.md`).
 3. Frontmatter needs `name` (same as the folder) and `description`. Agents
    pick skills by description, so lead with the trigger: "Use when...".
 4. Keep the body short. Move long material into `references/` and scripts
