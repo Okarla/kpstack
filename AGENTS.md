@@ -67,7 +67,7 @@ to text you wrote or changed.
 ## Checks in this repo
 
 - `git diff --check` for whitespace.
-- `npx skills add ./ --list` must list every folder under `skills/`.
-- Each `skills/<name>/SKILL.md` has `name` (matching the folder) and a
+- `npx skills add ./ --list` must list every skill folder at the repo root.
+- Each `<name>/SKILL.md` has `name` (matching the folder) and a
   `description` that says when to use it.
 - Check that local links and file references in changed docs resolve.
