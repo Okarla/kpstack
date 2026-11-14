@@ -9,9 +9,16 @@ metadata:
     - skill: brainstorming
       author: Jesse Vincent
       url: "https://github.com/obra/superpowers"
+    - skill: in-your-own-words
+      author: Lauren Tan
+      url: "https://github.com/cursor/plugins"
 ---
 
 Interview the user until you both understand the idea the same way. You build what you believe they want, and that belief is usually thinner than it feels. This interview finds out what they actually want, and why, before anything gets built.
+
+## In your own words
+
+Before the first question, restate in your own words what you think the user's goals are and what problem they're trying to solve, in two or three sentences. Then ask what's wrong or missing, and fix your understanding before you ask about scope. Do it again before writing the brief, so any drift during the interview gets caught before it's written down.
 
 ## The phases
 
@@ -26,7 +33,7 @@ Every idea goes through the same phases, in this order. A phase can be short, bu
    - **MVP:** everything in POC, plus who the first users are, which data must persist, basic auth and privacy.
    - **Production:** everything in MVP, plus scale and performance, security and compliance, reliability and monitoring, rollout and migration, who owns it, cost.
 6. **Approach.** In a message of its own, lay out the two or three real ways to build it, each concrete enough to picture, with what it trades off. Drop any that work against the why. Recommend one, say why, and let the user pick. If there's genuinely one sensible way, say so and explain why the others don't fit.
-7. **Brief.** Write the idea brief (below) and get it approved.
+7. **Brief.** Restate the goals and the problem in your own words, then write the idea brief (below) and get it approved.
 
 If the user changes the tier mid-interview, say which phase 5 details you're adding or dropping. If phase 3 shows the idea is really several independent projects, say so, agree on an order, and run ideation on one at a time.
 
@@ -112,3 +119,4 @@ Nothing gets built until the user approves the idea brief. Building includes wri
 | "This phase doesn't apply to this idea" | Every idea goes through every phase. Make it short, don't skip it. |
 | "They said 'sounds good', so the brief is approved" | Approval covers only what you showed them. |
 | "I know enough to start building" | Not until the brief is approved. |
+| "I already know what they mean" | Say it back first. Restating is how you find out you don't. |
