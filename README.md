@@ -12,6 +12,7 @@ Inspired by [michaelshimeles/rstack](https://github.com/michaelshimeles/rstack).
 | # | Step | Skill | Comes from |
 |---|---|---|---|
 | 1 | Grill the idea | `ideate` | kpstack |
+| 2 | Spec | `to-spec` | kpstack |
 | – | Writing for humans | `unslop` | vendored (planned) |
 
 `AGENTS.md` decides which steps a task needs. A docs fix skips planning and
