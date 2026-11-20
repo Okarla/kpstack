@@ -12,7 +12,7 @@ Inspired by [michaelshimeles/rstack](https://github.com/michaelshimeles/rstack).
 | # | Step | Skill | Comes from |
 |---|---|---|---|
 | 1 | Grill the idea | `ideate` | kpstack |
-| 2 | Spec | `to-spec` | mattpocock/skills |
+| 2 | Spec | `to-spec` | kpstack |
 | 3 | Tickets | `to-tickets` | mattpocock/skills |
 | 4 | Isolate | `isolate` | kpstack (planned) |
 | 5 | Build | `tdd`, `codebase-design` | mattpocock/skills |
