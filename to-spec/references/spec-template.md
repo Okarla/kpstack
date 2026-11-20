@@ -49,10 +49,10 @@ Fill in every section. If one doesn't apply, write `N/A:` and the reason. Keep o
 <Production: MVP, plus rollout, monitoring, rollback, ownership, cost>
 
 ## Testing decisions
-- **Seams:** <where tests hook in: existing ones first, as high and as few as possible>
+- **Seams:** <the points tests drive the feature through, reusing existing ones where possible>
 - **Coverage:** <which seam proves each acceptance criterion>
 - **Modules under test:** <the modules these tests exercise>
-- **Prior art:** <similar tests in the codebase; new project: the walking skeleton's first test>
+- **Existing examples:** <tests in the codebase that work the same way; new project: the walking skeleton's first test>
 
 ## Decisions
 

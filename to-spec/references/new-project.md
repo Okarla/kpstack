@@ -25,4 +25,4 @@ Default to what the team already knows. A new language, framework or data store 
 
 ## Name the walking skeleton
 
-Describe the thinnest slice that runs end to end on the chosen foundations, such as one request through one handler into one table and back. `/to-tickets` makes it the first ticket so every later ticket builds on something that already runs. With no tests to use as prior art, the walking skeleton also sets the first test seam.
+Describe the thinnest slice that runs end to end on the chosen foundations, such as one request through one handler into one table and back. `/to-tickets` makes it the first ticket so every later ticket builds on something that already runs. With no existing tests to follow, the walking skeleton's first test also sets the first seam.

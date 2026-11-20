@@ -27,7 +27,13 @@ If the user has no brief, offer `/ideate`. If they decline, ask only what the sp
 6. **Acceptance criteria.** Write them now that the architecture is decided, so each one can name the real contracts, data and targets the design settled. Derive them from the user stories and the design.
    - **Numbered and testable:** AC-1, AC-2, ..., each one either a command with its expected output or Given/When/Then. Every anti-goal becomes a "must not" criterion.
    - **Traceability:** each story lists the criteria that prove it. Every criterion belongs to at least one story.
-7. **Testing decisions.** Sketch the seams where the feature will be tested. Prefer existing seams to new ones. Use the highest seam possible: the fewer seams across the codebase the better, with one as the ideal. If a new seam is needed, propose it at the highest point you can. Name the seam that proves each acceptance criterion. Good tests check external behavior through the seam, not implementation details. Point to similar tests already in the codebase as prior art. Check with the user that the seams match what they expect.
+7. **Testing decisions.** Decide with the user where the tests will touch the system. A seam is a point where a test can drive the feature and check what comes out, such as an HTTP endpoint, a CLI command or a queue consumer.
+   - **Reuse before adding.** Start from the places the codebase already tests through. Add a new one only when none of them can reach the behavior. Say why when you do.
+   - **Test from the outside.** Pick seams close to what a user or caller sees, so the tests survive changes to the code behind them. A test that needs to know how the inside is arranged is checking the wrong thing.
+   - **Keep the count low.** Each extra seam is more test setup to maintain. Aim for the smallest set that still reaches every acceptance criterion.
+   - **Map them.** For each acceptance criterion, name the seam that proves it. Point to existing tests that work the same way so the build step can follow them.
+
+   Show the seams and the mapping. Ask whether they match how the user expects the feature to be tested.
 8. **Play back and approve.** In under 200 words, say what will change, the riskiest decision and what's still open. Then ask for approval of the whole spec.
 
 Work on the spec in the session. Once the user approves it, suggest `/to-tickets` to pick it up from the session. `/to-tickets` turns the user stories into tickets, each carrying its acceptance criteria and the seams that test them.
@@ -110,6 +116,6 @@ No tickets and no code until the user approves the spec. That covers product cod
 | "This section doesn't apply" | Write `N/A:` and the reason. |
 | "This criterion is clear enough" | If you can't say how to test it, it isn't. |
 | "A few broad user stories are enough" | `/to-tickets` slices by story. Cover every actor and flow, edge and error cases included. |
-| "I'll add a test seam for each layer" | Highest seam, fewest seams. One is ideal. |
+| "I'll add a test seam for each layer" | Test from the outside, through the smallest set of seams that reaches every criterion. |
 | "I know how this codebase works" | Read it. Current state comes from the code, not memory. |
 | "They approved the requirements, so the spec is approved" | Approval covers only what you showed them. |
