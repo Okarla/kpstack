@@ -1,6 +1,6 @@
 ---
 name: to-spec
-description: Use when an idea has been agreed, usually as an approved idea brief from /ideate. It needs a spec before it's split into tickets. Builds the architecture and system design step by step with the user then settles the test seams. Writes requirements, user stories and numbered acceptance criteria scaled to the idea's tier then ends with an approved spec that /to-tickets turns into tickets. Works for changes to existing code and for new projects with no code yet.
+description: Use when an agreed idea needs a spec before it's split into tickets, usually right after /ideate produced an approved idea brief. Builds the architecture and system design step by step with the user. Writes requirements, user stories, numbered acceptance criteria and test seams, scaled to the idea's tier. Ends with an approved spec that /to-tickets turns into tickets. Works on existing codebases as well as new projects with no code yet.
 ---
 
 Turn an agreed idea into a spec someone else could build from. The idea brief says why the user wants it, what it does and which direction they picked. The spec is where the architecture gets decided. It says what must be true when it's done and how the system will make it true.
