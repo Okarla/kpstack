@@ -23,11 +23,6 @@ step's description directly and say which skill was missing.
 3. **Tickets.** `/to-tickets` splits the spec into independently grabbable
    vertical slices. Each ticket then runs through Build below on its own.
 
-`to-spec`, `to-tickets`, `tdd`, `codebase-design`, `code-review`, and `pr` are
-vendored from [mattpocock/skills](https://github.com/mattpocock/skills), so
-installing kpstack installs them. Specs and tickets go to the issue tracker
-named here; with none named, GitHub issues, or local files under `.scratch/`.
-
 ## Build
 
 4. **Isolate.** `/isolate` before any repository edit: a new worktree and
