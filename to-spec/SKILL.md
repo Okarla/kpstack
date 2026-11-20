@@ -9,11 +9,13 @@ The brief picks the direction: the shape of the solution the user can picture, s
 
 ## Input
 
-Read the idea brief at `docs/ideas/<slug>.md` or the path the user gives you. Read all of it.
+Look for the idea brief in this session first. It's usually there because `/ideate` wrote it earlier in the conversation. If the user passed a path along with `/to-spec`, read that file instead.
+
+If there's no brief in the session, ask the user for a file reference to one. Read the whole file before you start.
 
 The brief is already approved. Don't ask again about why, what or boundaries and don't reopen the direction. If the code contradicts the brief or two parts of the brief conflict, raise it as a question. Never resolve it silently.
 
-If there's no brief, say so and offer `/ideate`. If the user declines, ask only what the spec can't be written without, one question at a time: the tier (POC, MVP or production), why they want it, the core flow and the direction. Put their answers at the top of the spec in place of the brief link.
+If the user has no brief, offer `/ideate`. If they decline, ask only what the spec can't be written without, one question at a time: the tier (POC, MVP or production), why they want it, the core flow and the direction. Put their answers at the top of the spec in place of the brief link.
 
 ## Steps
 
@@ -24,7 +26,7 @@ If there's no brief, say so and offer `/ideate`. If the user declines, ask only 
 5. **Design.** Write the design on top of those decisions, as deep as the tier calls for. Write decisions and contracts, not code: "orders-service publishes `order.cancelled` with `id` and `reason`", not the function that emits it. If the design depends on one of the brief's "My calls", point it out so the user can confirm it.
 6. **Play back and approve.** In under 200 words, say what will change, the riskiest decision and what's still open. Then ask for approval of the whole spec.
 
-Save the spec to `docs/specs/<slug>.md`, using the brief's slug, with status `Draft` while you work. Set it to `Approved` when the user approves it, then suggest `/to-tickets` with the spec's path as its input.
+Save the spec to `docs/specs/<slug>.md`, where `<slug>` is the idea's name in kebab-case, with status `Draft` while you work. Set it to `Approved` when the user approves it, then suggest `/to-tickets` with the spec's path as its input.
 
 If the design shows the brief's direction can't work, stop and tell the user why. Don't switch to another direction on your own.
 
@@ -78,7 +80,7 @@ Look up facts yourself (files, existing code, tools); don't ask the user for the
 # Spec: <name>
 
 **Status:** Draft | Approved
-**Brief:** docs/ideas/<slug>.md
+**Brief:** <path to the brief file; "this session" if it came from the conversation>
 **Tier:** POC | MVP | Production
 
 ## Requirements
