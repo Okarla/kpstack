@@ -40,6 +40,13 @@ Fill in every section. If one doesn't apply, write `N/A:` and the reason. Keep o
 ### Data
 <schema changes, persistence, migrations, backward compatibility>
 
+### Security, performance, observability
+- **Security:** <who can do what, sensitive data, what's exposed and to whom>
+- **Performance:** <expected load, latency targets, where it could get slow>
+- **Observability:** <the logs, metrics and traces that show it works once it's running>
+
+<as deep as the tier calls for: a sentence each can be enough for a POC; `N/A:` and the reason for any that doesn't apply>
+
 ### Walking skeleton
 <new project only: the thinnest slice that runs end to end>
 
