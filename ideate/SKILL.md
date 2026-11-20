@@ -1,6 +1,6 @@
 ---
 name: ideate
-description: Use when the user has a new idea, feature, or product to shape before writing a spec. Runs a one-question-at-a-time interview through the same fixed phases for every idea (scope, why, what, boundaries, depth, approach) and ends with an approved idea brief.
+description: Use when the user has a new idea, feature, or product to shape before writing a spec. Runs a one-question-at-a-time interview through the same fixed phases for every idea (scope, why, what, boundaries, depth, approach) and ends with an approved idea brief saved to docs/ideas/ in the repo.
 ---
 
 Interview the user until you both understand the idea the same way. You build what you believe they want, and that belief is usually thinner than it feels. This interview finds out what they actually want, and why, before anything gets built.
@@ -22,7 +22,7 @@ Every idea goes through the same phases, in this order. A phase can be short, bu
    - **MVP:** everything in POC, plus who the first users are, which data must persist, basic auth and privacy.
    - **Production:** everything in MVP, plus scale and performance, security and compliance, reliability and monitoring, rollout and migration, who owns it, cost.
 6. **Approach.** In a message of its own, lay out the two or three real ways to build it, each concrete enough to picture, with what it trades off. Drop any that work against the why. Recommend one, say why, and let the user pick. If there's genuinely one sensible way, say so and explain why the others don't fit.
-7. **Brief.** Restate the goals and the problem in your own words, then write the idea brief (below) and get it approved.
+7. **Brief.** Restate the goals and the problem in your own words, then write the idea brief (below), get it approved, and save it.
 
 If the user changes the tier mid-interview, say which phase 5 details you're adding or dropping. If phase 3 shows the idea is really several independent projects, say so, agree on an order, and run ideation on one at a time.
 
@@ -92,10 +92,14 @@ The interview is done when every phase is covered and nothing is silently assume
 - <what's still uncertain>
 ```
 
-Once the user approves it, suggest `/to-spec` with the brief as its input.
+## Save the brief
+
+Once the user approves the brief, save it as `docs/ideas/<name>.md` at the repo root, where `<name>` is the idea's name in kebab-case. Create `docs/ideas/` if it doesn't exist. If the file already exists, ask before overwriting it. Write the approved brief exactly as shown, then tell the user the path.
+
+Then suggest `/to-spec` with the saved brief as its input.
 
 <HARD-GATE>
-Nothing gets built until the user approves the idea brief. Building includes writing product code, scaffolding, installing dependencies, creating projects, and invoking an implementation skill. Reading and exploring are fine. If the user opts out of the interview ("just build it"), this skill is done and the gate goes with it.
+Nothing gets built until the user approves the idea brief. Saving the approved brief isn't building. Building includes writing product code, scaffolding, installing dependencies, creating projects, and invoking an implementation skill. Reading and exploring are fine. If the user opts out of the interview ("just build it"), this skill is done and the gate goes with it.
 </HARD-GATE>
 
 ## Red flags
