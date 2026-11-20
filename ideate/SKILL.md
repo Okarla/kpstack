@@ -1,17 +1,6 @@
 ---
 name: ideate
 description: Use when the user has a new idea, feature, or product to shape before writing a spec. Runs a one-question-at-a-time interview through the same fixed phases for every idea (scope, why, what, boundaries, depth, approach) and ends with an approved idea brief.
-metadata:
-  credits:
-    - skill: grilling
-      author: Matt Pocock
-      url: "https://github.com/mattpocock/skills"
-    - skill: brainstorming
-      author: Jesse Vincent
-      url: "https://github.com/obra/superpowers"
-    - skill: in-your-own-words
-      author: Lauren Tan
-      url: "https://github.com/cursor/plugins"
 ---
 
 Interview the user until you both understand the idea the same way. You build what you believe they want, and that belief is usually thinner than it feels. This interview finds out what they actually want, and why, before anything gets built.

@@ -23,8 +23,6 @@ step's description directly and say which skill was missing.
 3. **Tickets.** `/to-tickets` splits the spec into independently grabbable
    vertical slices. Each ticket then runs through Build below on its own.
 
-Planning skills come from [mattpocock/skills](https://github.com/mattpocock/skills).
-
 ## Build
 
 4. **Isolate.** `/isolate` before any repository edit: a new worktree and
