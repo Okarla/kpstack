@@ -1,11 +1,11 @@
 ---
 name: to-spec
-description: Use when an idea has been agreed, usually as an approved idea brief from /ideate. It needs a spec before it's split into tickets. Decides the architecture and system design, writes requirements and numbered acceptance criteria scaled to the idea's tier then ends with an approved spec. Works for changes to existing code and for new projects with no code yet.
+description: Use when an idea has been agreed, usually as an approved idea brief from /ideate. It needs a spec before it's split into tickets. Builds the architecture and system design step by step with the user then settles the test seams. Writes requirements, user stories and numbered acceptance criteria scaled to the idea's tier then ends with an approved spec that /to-tickets turns into tickets. Works for changes to existing code and for new projects with no code yet.
 ---
 
 Turn an agreed idea into a spec someone else could build from. The idea brief says why the user wants it, what it does and which direction they picked. The spec is where the architecture gets decided. It says what must be true when it's done and how the system will make it true.
 
-The brief picks the direction: the shape of the solution the user can picture, such as extending an existing service or building a separate worker. The spec decides the architecture within that direction: data stores, sync or async, which component owns what, the contracts between them and how failures are handled.
+The brief picks the direction: the shape of the solution the user can picture, such as extending an existing service or building a separate worker. The spec builds the architecture within that direction, together with the user: data stores, sync or async, which component owns what, the contracts between them and how failures are handled.
 
 ## Input
 
@@ -19,39 +19,48 @@ If the user has no brief, offer `/ideate`. If they decline, ask only what the sp
 
 ## Steps
 
-1. **Find the starting point.** If there's existing code, find what the idea touches: services, modules, schemas, APIs and how similar features are already built. This becomes "Current state", with file references. The existing architecture wins unless the brief says otherwise. If there's no code yet, follow [When there's no code yet](#when-theres-no-code-yet) instead.
-2. **Requirements and acceptance criteria.** Derive the requirements from the brief's What, Boundaries and Depth. Number the acceptance criteria (AC-1, AC-2, ...) and make each one testable, either as a command with its expected output or as Given/When/Then. Every anti-goal becomes a "must not" criterion.
-3. **First gate (MVP and production only).** Show the requirements and acceptance criteria and get them approved before you design anything. For a POC, go straight to the decisions.
-4. **Decide the architecture.** List the architecture decisions this idea needs, based on the brief and the starting point. For each one with more than one reasonable answer, ask the user with options, trade-offs and your pick. Settle the rest yourself and tell the user. Record every decision under Decisions, including the options you rejected.
+1. **Find the starting point.** If there's existing code, find what the idea touches: services, modules, schemas, APIs and how similar features are already built. This becomes "Current state", with file references. The existing architecture wins unless the brief says otherwise. If there's no code yet, read [references/new-project.md](references/new-project.md) and follow it instead.
+2. **Requirements, user stories and acceptance criteria.** Derive the requirements from the brief's What, Boundaries and Depth.
+   - **User stories:** number them (US-1, US-2, ...) in the form "As a <actor>, I want <capability>, so that <benefit>". Cover every actor and flow in the brief, including edge and error cases. `/to-tickets` slices the work by story, so each one describes behavior someone can observe, not a layer of the code.
+   - **Acceptance criteria:** number them (AC-1, AC-2, ...) and make each one testable, either as a command with its expected output or as Given/When/Then. Every anti-goal becomes a "must not" criterion.
+   - **Traceability:** each story lists the criteria that prove it. Every criterion belongs to at least one story.
+3. **First gate (MVP and production only).** Show the requirements, user stories and acceptance criteria. Get them approved before you design anything. For a POC, go straight to the decisions.
+4. **Build the architecture with the user.** The user owns the architecture. Never decide it on your own. Build it together, one decision at a time, following [Building the architecture](#building-the-architecture).
 5. **Design.** Write the design on top of those decisions, as deep as the tier calls for. Write decisions and contracts, not code: "orders-service publishes `order.cancelled` with `id` and `reason`", not the function that emits it. If the design depends on one of the brief's "My calls", point it out so the user can confirm it.
-6. **Play back and approve.** In under 200 words, say what will change, the riskiest decision and what's still open. Then ask for approval of the whole spec.
+6. **Testing decisions.** Sketch the seams where the feature will be tested. Prefer existing seams to new ones. Use the highest seam possible: the fewer seams across the codebase the better, with one as the ideal. If a new seam is needed, propose it at the highest point you can. Name the seam that proves each acceptance criterion. Good tests check external behavior through the seam, not implementation details. Point to similar tests already in the codebase as prior art. Check with the user that the seams match what they expect.
+7. **Play back and approve.** In under 200 words, say what will change, the riskiest decision and what's still open. Then ask for approval of the whole spec.
 
-Save the spec to `docs/specs/<slug>.md`, where `<slug>` is the idea's name in kebab-case, with status `Draft` while you work. Set it to `Approved` when the user approves it, then suggest `/to-tickets` with the spec's path as its input.
+Work on the spec in the session. Once the user approves it, suggest `/to-tickets` to pick it up from the session. `/to-tickets` turns the user stories into tickets, each carrying its acceptance criteria and the seams that test them.
+
+**Export (optional).** After approval, offer to export the spec to a markdown file so the user can continue in another session or share it. Export only the approved spec, never a work in progress. Use the path the user chooses, suggesting `docs/specs/<slug>.md` with the idea's name in kebab-case. A later session can pass that path to `/to-tickets`.
 
 If the design shows the brief's direction can't work, stop and tell the user why. Don't switch to another direction on your own.
 
-## When there's no code yet
+## Building the architecture
 
-A new project has no current state to follow, so the spec has to make the decisions that existing code would otherwise make for you. Treat it as new when the repo is empty or the idea is a new service or app.
+Walk the user through the architecture step by step so both of you understand how it fits together and why. By the end, they should be able to explain it without you.
 
-**Find the constraints before you choose.** No code doesn't mean no constraints. Look for them in this order:
+1. **Map the decisions.** From the brief and the starting point, list the architecture decisions this idea needs. Check each area so nothing is missed:
+   - **Modules:** which ones are built and which are changed.
+   - **Module interfaces:** what other code calls that will change.
+   - **Schemas:** new or changed tables, fields, events.
+   - **API contracts:** endpoints, payloads, versioning.
+   - **Interactions:** who calls whom, sync or async, in what order.
+   - **Failure handling:** what happens when each interaction fails.
+   - **Constraints only the user knows:** team rules, deadlines, systems the code doesn't show.
 
-1. The brief's Depth: hosting, compliance, scale, who owns it.
-2. Systems it must talk to: existing services, APIs, databases, identity providers.
-3. What the team already runs: sibling repos, a monorepo, shared libraries, deploy configs. Look these up yourself where you can.
-4. What you can't find: ask the user, one question at a time. "What does your team already deploy to?" is a fact only they may know.
+   Skip an area only after saying why it doesn't apply. Order the decisions so each one builds on the ones before it. For a new project, the foundations come first. Show the list and the order. Ask what's missing or out of place before you start.
+2. **One decision per turn.** For each decision, explain:
+   - **Why it matters:** what it affects and what depends on it.
+   - **What constrains it:** facts from the code, the brief or decisions already made.
+   - **The options:** two or three real ones, each with what it trades off.
+   - **Your pick:** which one you recommend and why.
 
-Write what you found under "Starting point" in place of "Current state".
+   Then let the user decide. If they ask a question or push back, talk it through before moving on. When a decision has one obvious answer, still present it: say your pick and why, then ask them to confirm.
+3. **Play back the architecture so far.** After each decision, show in a few lines how the pieces fit together now, as text or a small diagram. If the new decision changes an earlier one, say which and why. Agree on the change before you continue.
+4. **Walk through the whole.** When every decision is made, walk the user through the full architecture: the components, how a request or event flows through them and where it can fail. Ask what's wrong or missing. Only then write the design.
 
-**Decide the foundations.** These are the decisions most expensive to change later, so each one goes under Decisions with its options. Decide only what the tier needs:
-
-- **POC:** language and framework, where it runs.
-- **MVP:** POC, plus data store, auth, how it's deployed.
-- **Production:** MVP, plus repo layout, CI and testing, observability, secrets and config.
-
-Default to what the team already knows. A new language, framework or data store needs a reason in Decisions that ties back to the brief.
-
-**Name the walking skeleton.** Describe the thinnest slice that runs end to end on the chosen foundations, such as one request through one handler into one table and back. `/to-tickets` makes it the first ticket so every later ticket builds on something that already runs.
+Record every decision under Decisions as it's made, with the options the user rejected.
 
 ## What belongs in the spec
 
@@ -61,7 +70,7 @@ Fill in every section of the template. If one doesn't apply, write `N/A:` and th
 
 ## Asking
 
-Ask one question per turn, then wait. Ask only when the answer changes the design and neither the brief nor the code answers it. Otherwise, make the call and record it under Decisions. Tell the user so they can correct it.
+Ask one question per turn, then wait. Every architecture decision goes to the user, as described in [Building the architecture](#building-the-architecture). For anything else, ask only when the answer changes the spec and neither the brief nor the code answers it.
 
 Look up facts yourself (files, existing code, tools); don't ask the user for them. When a decision has choices you can name, give the choices, what each trades off and your pick:
 
@@ -76,65 +85,10 @@ Look up facts yourself (files, existing code, tools); don't ask the user for the
 
 ## The spec
 
-```markdown
-# Spec: <name>
-
-**Status:** Draft | Approved
-**Brief:** <path to the brief file; "this session" if it came from the conversation>
-**Tier:** POC | MVP | Production
-
-## Requirements
-- **Functional:** <behavior a user or caller can observe>
-- **Non-functional:** <latency, scale, security, cost: from the brief's Depth>
-
-## Acceptance criteria
-- **AC-1:** <testable statement>
-- **AC-2:** <...>
-- **AC-n:** Must not <anti-goal>.
-
-## Design
-
-### Current state | Starting point
-<existing code: what this touches, with file references>
-<new project: constraints found, systems it talks to, what the team already runs>
-
-### Foundations
-<new project only: the stack the decisions below settled>
-<existing code: N/A: builds on the current stack>
-
-### Components and flow
-<the parts involved and how data moves between them; a diagram if it helps>
-
-### Interfaces
-<APIs, events, schemas, flags: anything other code or teams depend on>
-
-### Data
-<new or changed models, persistence, migrations, backward compatibility>
-
-### Walking skeleton
-<new project only: the thinnest slice that runs end to end>
-
-### Tier details
-<POC: what's faked or hardcoded and where the throwaway line is>
-<MVP: POC, plus persistence, auth, privacy>
-<Production: MVP, plus rollout, monitoring, rollback, ownership, cost>
-
-## Decisions
-
-### D-1: <what was decided>
-- **From:** brief | spec
-- **Options:** <option> — <trade-off>; <option> — <trade-off>
-- **Chosen:** <option>, because <why>
-- **Cost:** <what this gives up>
-
-## Open questions
-- <question> — <who answers it>
-```
-
-Keep only the tier details for this idea's tier. Decisions from the brief (its direction and "My calls") are recorded with `From: brief`.
+Write the spec using the template in [references/spec-template.md](references/spec-template.md). Read it when you start writing.
 
 <HARD-GATE>
-No tickets and no code until the user approves the spec. That covers product code, scaffolding, dependencies or invoking `/to-tickets` or an implementation skill. Reading code and writing the spec file are fine.
+No tickets and no code until the user approves the spec. That covers product code, scaffolding, dependencies or invoking `/to-tickets` or an implementation skill. Reading code and writing the spec are fine.
 </HARD-GATE>
 
 ## Red flags
@@ -144,10 +98,15 @@ No tickets and no code until the user approves the spec. That covers product cod
 | "A different direction would be better" | The brief picked it. Raise the concern as a question; don't switch. |
 | "I'll ask why they want this" | The brief answers that. Read it again. |
 | "I'll write the design, then list the decisions" | Decide first. The design follows from the decisions. |
+| "This decision is small, I'll just pick" | Present your pick and why. The user confirms it. |
+| "I'll lay out the whole architecture at once" | One decision per turn, each building on the last. |
+| "They picked an option, on to the next one" | Play back how the architecture looks now first. |
 | "The choice is obvious, no need to record it" | Record it with the options you rejected. The next reader won't find it obvious. |
 | "There's no code, so anything goes" | Find the team's stack and constraints first. New tech needs a reason. |
 | "I'll sketch the implementation" | Decisions and contracts, not code. |
 | "This section doesn't apply" | Write `N/A:` and the reason. |
 | "This criterion is clear enough" | If you can't say how to test it, it isn't. |
+| "A few broad user stories are enough" | `/to-tickets` slices by story. Cover every actor and flow, edge and error cases included. |
+| "I'll add a test seam for each layer" | Highest seam, fewest seams. One is ideal. |
 | "I know how this codebase works" | Read it. Current state comes from the code, not memory. |
 | "They approved the requirements, so the spec is approved" | Approval covers only what you showed them. |
