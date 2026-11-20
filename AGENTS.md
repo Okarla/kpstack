@@ -17,7 +17,7 @@ step's description directly and say which skill was missing.
 
 ## Plan
 
-1. **Grill.** `/grilling` when the idea is fuzzy or the user wants it
+1. **Grill.** `/ideate` when the idea is fuzzy or the user wants it
    stress-tested. Optional.
 2. **Spec.** `/to-spec` turns the agreed idea into a spec.
 3. **Tickets.** `/to-tickets` splits the spec into independently grabbable
