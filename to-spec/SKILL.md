@@ -47,9 +47,12 @@ Walk the user through the architecture step by step so both of you understand ho
    - **API contracts:** endpoints, payloads, versioning.
    - **Interactions:** who calls whom, sync or async, in what order.
    - **Failure handling:** what happens when each interaction fails.
+   - **Security:** who can do what, sensitive data, what's exposed and to whom.
+   - **Performance:** expected load, latency targets, where it could get slow.
+   - **Observability:** the logs, metrics and traces that show it works once it's running.
    - **Constraints only the user knows:** team rules, deadlines, systems the code doesn't show.
 
-   Skip an area only after saying why it doesn't apply. Order the decisions so each one builds on the ones before it. For a new project, the foundations come first. Show the list and the order. Ask what's missing or out of place before you start.
+   Skip an area only after saying why it doesn't apply. Security, performance and observability go as deep as the tier calls for: a POC may only need a sentence each. Order the decisions so each one builds on the ones before it. For a new project, the foundations come first. Show the list and the order. Ask what's missing or out of place before you start.
 2. **One decision per turn.** For each decision, explain:
    - **Why it matters:** what it affects and what depends on it.
    - **What constrains it:** facts from the code, the brief or decisions already made.
